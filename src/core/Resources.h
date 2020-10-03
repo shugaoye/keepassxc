@@ -30,6 +30,8 @@ public:
     QString dataPath(const QString& name) const;
     QString pluginPath(const QString& name) const;
     QString wordlistPath(const QString& name) const;
+
+    // This is all going to UI
     QIcon applicationIcon();
     QIcon trayIcon();
     QIcon trayIconLocked();
