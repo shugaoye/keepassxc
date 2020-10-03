@@ -19,9 +19,11 @@
 #ifndef KEEPASSX_RESOURCES_H
 #define KEEPASSX_RESOURCES_H
 
+// FIXME Remove those imports
 #include <QColor>
-#include <QHash>
 #include <QIcon>
+
+#include <QHash>
 #include <QString>
 
 class Resources
