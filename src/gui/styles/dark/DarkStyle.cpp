@@ -105,14 +105,9 @@ void DarkStyle::polish(QWidget* widget)
         || qobject_cast<QToolBar*>(widget)) {
         auto palette = widget->palette();
 #if defined(Q_OS_MACOS)
-        if (osUtils->isDarkMode()) {
-            // Let the Cocoa platform plugin draw its own background
-            palette.setColor(QPalette::All, QPalette::Window, Qt::transparent);
-        } else {
-            palette.setColor(QPalette::Active, QPalette::Window, QRgb(0x2A2A2A));
-            palette.setColor(QPalette::Inactive, QPalette::Window, QRgb(0x2D2D2D));
-            palette.setColor(QPalette::Disabled, QPalette::Window, QRgb(0x2A2A2A));
-        }
+        palette.setColor(QPalette::Active, QPalette::Window, QRgb(0x2A2A2A));
+        palette.setColor(QPalette::Inactive, QPalette::Window, QRgb(0x2D2D2D));
+        palette.setColor(QPalette::Disabled, QPalette::Window, QRgb(0x2A2A2A));
 #elif defined(Q_OS_WIN)
         // Register event filter for better dark mode support
         WinUtils::registerEventFilters();
