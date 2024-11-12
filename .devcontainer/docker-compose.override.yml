@@ -1,0 +1,3 @@
+services: 
+  qt5build: 
+    user: 1001:1001
