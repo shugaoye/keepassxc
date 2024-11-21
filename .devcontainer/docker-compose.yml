@@ -1,6 +1,7 @@
 services:
   qt5build:
-    image: devcontainers1/qt5:noble-qt5.15
+    image: devcontainers1/qt5:focal-qt5.15
+    privileged: true
     volumes:
       # Update this to wherever you want VS Code to mount the folder of your project
       - /tmp/.X11-unix:/tmp/.X11-unix
