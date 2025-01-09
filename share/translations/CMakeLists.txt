@@ -20,7 +20,7 @@ list(REMOVE_ITEM TRANSLATION_FILES keepassxc_en.ts)
 list(REMOVE_ITEM TRANSLATION_FILES ${TRANSLATION_EN_ABS})
 message(STATUS "Including translations...\n")
 
-qt5_add_translation(QM_FILES ${TRANSLATION_FILES})
+qt_add_translation(QM_FILES ${TRANSLATION_FILES})
 
 if(WIN32)
     file(GLOB QTBASE_TRANSLATIONS ${Qt5_PREFIX}/share/qt5/translations/qtbase_*.qm)

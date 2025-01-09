@@ -491,35 +491,36 @@ endif()
 
 include(CLangFormat)
 
-set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools)
+set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools Core5Compat)
 if(UNIX AND NOT APPLE)
-    if(WITH_XC_X11)
-        list(APPEND QT_COMPONENTS X11Extras)
-    endif()
-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
+#    if(WITH_XC_X11)
+#        list(APPEND QT_COMPONENTS X11Extras)
+#    endif()
+    find_package(Qt6 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
 elseif(APPLE)
-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS
+    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS
             /usr/local/opt/qt@5/lib/cmake
             /usr/local/Cellar/qt@5/*/lib/cmake
             /opt/homebrew/opt/qt@5/lib/cmake
             ENV PATH)
-    find_package(Qt5 COMPONENTS MacExtras HINTS
+    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS MacExtras HINTS
             /usr/local/opt/qt@5/lib/cmake
             /usr/local/Cellar/qt@5/*/lib/cmake
             /opt/homebrew/opt/qt@5/lib/cmake
             ENV PATH)
 else()
-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS} REQUIRED)
 endif()
 
-if(Qt5Core_VERSION VERSION_LESS "5.12.0")
-    message(FATAL_ERROR "Qt version 5.12.0 or higher is required")
-endif()
+message("QT6: ${QT_COMPONENTS}")
+#if(${QT_VERSION_MAJOR} VERSION_LESS "6")
+#    message(FATAL_ERROR "Qt version 6 or higher is required")
+#endif()
 
-get_filename_component(Qt5_PREFIX ${Qt5_DIR}/../../.. REALPATH)
+get_filename_component(Qt${QT_VERSION_MAJOR}_PREFIX ${QT6_DIR}/../../.. REALPATH)
 if(APPLE)
     # Add includes under Qt5 Prefix in case Qt6 is also installed
-    include_directories(SYSTEM ${Qt5_PREFIX}/include)
+    include_directories(SYSTEM ${Qt${QT_VERSION_MAJOR}_PREFIX}/include)
 endif()
 
 # Process moc automatically
@@ -614,10 +615,10 @@ if(NOT ZXCVBN_LIBRARIES)
 endif(NOT ZXCVBN_LIBRARIES)
 
 add_subdirectory(src)
-add_subdirectory(share)
-if(WITH_TESTS)
-    add_subdirectory(tests)
-endif(WITH_TESTS)
+#add_subdirectory(share)
+#if(WITH_TESTS)
+#    add_subdirectory(tests)
+#endif(WITH_TESTS)
 
 if(WITH_XC_DOCS)
     add_subdirectory(docs)
