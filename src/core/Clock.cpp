@@ -33,7 +33,7 @@ QDateTime Clock::currentDateTime()
 uint Clock::currentSecondsSinceEpoch()
 {
     // TODO: change to toSecsSinceEpoch() when min Qt >= 5.8
-    return instance().currentDateTimeImpl().toTime_t();
+    return static_cast<time_t>(instance().currentDateTimeImpl().toSecsSinceEpoch());
 }
 
 qint64 Clock::currentMilliSecondsSinceEpoch()

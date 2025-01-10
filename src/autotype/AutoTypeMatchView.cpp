@@ -16,9 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "core/Entry.h"
+
 #include "AutoTypeMatchView.h"
 #include "AutoTypeMatchModel.h"
-#include "core/Entry.h"
 
 #include <QHeaderView>
 #include <QKeyEvent>
@@ -38,9 +39,9 @@ public:
         auto index1 = sourceModel()->index(sourceRow, 1, sourceParent);
         auto index2 = sourceModel()->index(sourceRow, 2, sourceParent);
 
-        return sourceModel()->data(index0).toString().contains(filterRegExp())
-               || sourceModel()->data(index1).toString().contains(filterRegExp())
-               || sourceModel()->data(index2).toString().contains(filterRegExp());
+        return sourceModel()->data(index0).toString().contains(filterRegularExpression())
+               || sourceModel()->data(index1).toString().contains(filterRegularExpression())
+               || sourceModel()->data(index2).toString().contains(filterRegularExpression());
     }
 };
 

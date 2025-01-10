@@ -22,6 +22,7 @@
 #include "crypto/CryptoHash.h"
 #include "crypto/Random.h"
 
+#include <algorithm>
 #include <QDataStream>
 #include <QFile>
 #include <QXmlStreamReader>
@@ -362,7 +363,7 @@ bool FileKey::loadXml(QIODevice* device, QString* errorMsg)
 
     bool ok = false;
     if (!xmlReader.error() && !keyFileData.data.isEmpty()) {
-        std::memcpy(m_key.data(), keyFileData.data.data(), std::min(SHA256_SIZE, keyFileData.data.size()));
+        std::memcpy(m_key.data(), keyFileData.data.data(), std::min(SHA256_SIZE, static_cast<int>(keyFileData.data.size())));
         ok = true;
     }
 
@@ -421,7 +422,7 @@ bool FileKey::loadHex(QIODevice* device)
         return false;
     }
 
-    std::memcpy(m_key.data(), data.data(), std::min(SHA256_SIZE, data.size()));
+    std::memcpy(m_key.data(), data.data(), std::min(SHA256_SIZE, static_cast<int>(data.size())));
     Botan::secure_scrub_memory(data.data(), static_cast<std::size_t>(data.capacity()));
 
     m_type = FixedBinaryHex;
@@ -447,7 +448,7 @@ bool FileKey::loadHashed(QIODevice* device)
     } while (!buffer.isEmpty());
 
     buffer = cryptoHash.result();
-    std::memcpy(m_key.data(), buffer.data(), std::min(SHA256_SIZE, buffer.size()));
+    std::memcpy(m_key.data(), buffer.data(), std::min(SHA256_SIZE, static_cast<int>(buffer.size())));
     Botan::secure_scrub_memory(buffer.data(), static_cast<std::size_t>(buffer.capacity()));
 
     m_type = Hashed;

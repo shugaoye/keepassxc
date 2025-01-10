@@ -616,9 +616,9 @@ endif(NOT ZXCVBN_LIBRARIES)
 
 add_subdirectory(src)
 #add_subdirectory(share)
-#if(WITH_TESTS)
-#    add_subdirectory(tests)
-#endif(WITH_TESTS)
+if(WITH_TESTS)
+    add_subdirectory(tests)
+endif(WITH_TESTS)
 
 if(WITH_XC_DOCS)
     add_subdirectory(docs)

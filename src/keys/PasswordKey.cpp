@@ -19,6 +19,7 @@
 
 #include "crypto/CryptoHash.h"
 
+#include <QIODevice>
 #include <QDataStream>
 #include <QSharedPointer>
 

@@ -18,7 +18,8 @@
 #include "TextStream.h"
 
 #include <QProcessEnvironment>
-#include <QTextCodec>
+//#include <QTextCodec>
+#include <QStringConverter>
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
@@ -87,13 +88,16 @@ void TextStream::detectCodec()
         // Only override codec if LANG is set, otherwise Qt will assume
         // US-ASCII, which is almost always wrong and results in
         // Unicode passwords being displayed as question marks.
-        codecName = QTextCodec::codecForLocale()->name();
+        //codecName = QTextCodec::codecForLocale()->name();
     }
 #endif
+/*  The good news is that stuff like textstream.setCodec(QTextCodec::codecForName("UTF-8")); is no longer needed in Qt6 since QTextStream defaults to utf-8.
 
+ The bad news is that QStringConverter does not support most of the codecs that QTextCodec supports. It only supports only UTF-8/16/32 and Latin1.
     codecName = env.value("ENCODING_OVERRIDE", codecName);
     auto* codec = QTextCodec::codecForName(codecName.toLatin1());
     if (codec) {
         setCodec(codec);
     }
+*/
 }

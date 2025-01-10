@@ -19,7 +19,9 @@
 
 #include <QFile>
 #include <QFileInfo>
-#include <QTextCodec>
+//#include <QTextCodec>
+#include <QRegularExpression>
+#include <QStringConverter>
 
 #include "core/Endian.h"
 #include "core/Group.h"
@@ -300,8 +302,10 @@ KeePass1Reader::testKeys(const QString& password, const QByteArray& keyfileData,
 
     QScopedPointer<SymmetricCipherStream> cipherStream;
     QByteArray passwordData;
-    QTextCodec* codec = QTextCodec::codecForName("Windows-1252");
-    QByteArray passwordDataCorrect = codec->fromUnicode(password);
+    //QTextCodec* codec = QTextCodec::codecForName("Windows-1252");
+    //QByteArray passwordDataCorrect = codec->fromUnicode(password);
+    auto fromUtf16 = QStringEncoder(QStringEncoder::Utf8);
+    QByteArray passwordDataCorrect = fromUtf16(password);
 
     for (PasswordEncoding encoding : encodings) {
         if (encoding == Windows1252) {
@@ -701,8 +705,8 @@ Entry* KeePass1Reader::readEntry(QIODevice* cipherStream)
 
 void KeePass1Reader::parseNotes(const QString& rawNotes, Entry* entry)
 {
-    QRegExp sequenceRegexp("Auto-Type(?:-(\\d+))?: (.+)", Qt::CaseInsensitive, QRegExp::RegExp2);
-    QRegExp windowRegexp("Auto-Type-Window(?:-(\\d+))?: (.+)", Qt::CaseInsensitive, QRegExp::RegExp2);
+    QRegularExpression sequenceRegexp("Auto-Type(?:-(\\d+))?: (.+)");
+    QRegularExpression windowRegexp("Auto-Type-Window(?:-(\\d+))?: (.+)");
     QHash<int, QString> sequences;
     QMap<int, QStringList> windows;
 
@@ -713,23 +717,25 @@ void KeePass1Reader::parseNotes(const QString& rawNotes, Entry* entry)
     for (QString line : rawNotesLines) {
         line.remove("\r");
 
-        if (sequenceRegexp.exactMatch(line)) {
-            if (sequenceRegexp.cap(1).isEmpty()) {
-                entry->setDefaultAutoTypeSequence(sequenceRegexp.cap(2));
+        QRegularExpressionMatch match = sequenceRegexp.match(line);
+        QRegularExpressionMatch windowMatch = windowRegexp.match(line);
+        if (match.hasMatch() && match.capturedLength(0) == line.length()) {
+            if (match.captured(1).isEmpty()) {
+                entry->setDefaultAutoTypeSequence(match.captured(2));
             } else {
-                sequences[sequenceRegexp.cap(1).toInt()] = sequenceRegexp.cap(2);
+                sequences[match.captured(1).toInt()] = match.captured(2);
             }
 
             lastLineAutoType = true;
-        } else if (windowRegexp.exactMatch(line)) {
+        } else if (windowMatch.hasMatch() && match.capturedLength(0) == line.length()) {
             int nr;
-            if (windowRegexp.cap(1).isEmpty()) {
+            if (windowMatch.captured(1).isEmpty()) {
                 nr = -1; // special number that matches no other sequence
             } else {
-                nr = windowRegexp.cap(1).toInt();
+                nr = windowMatch.captured(1).toInt();
             }
 
-            windows[nr].append(windowRegexp.cap(2));
+            windows[nr].append(windowMatch.captured(2));
 
             lastLineAutoType = true;
         } else {

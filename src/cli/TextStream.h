@@ -20,6 +20,8 @@
 
 #include <QTextStream>
 
+#include <QIODevice>
+
 /**
  * QTextStream with codec fixes for the Windows command line.
  *

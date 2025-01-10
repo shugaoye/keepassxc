@@ -22,7 +22,7 @@
 #include "core/Entry.h"
 #include "core/Group.h"
 
-#include <QApplication>
+#include <QtWidgets/QApplication>
 #include <QCryptographicHash>
 #include <QJsonDocument>
 

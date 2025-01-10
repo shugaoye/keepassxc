@@ -40,6 +40,7 @@
 #include <QUrl>
 #include <QUuid>
 #include <cmath>
+#include <QRegularExpressionValidator>
 
 #ifdef Q_OS_WIN
 #include <windows.h> // for Sleep()
@@ -220,11 +221,12 @@ namespace Tools
     bool isBase64(const QByteArray& ba)
     {
         constexpr auto pattern = R"(^(?:[a-z0-9+/]{4})*(?:[a-z0-9+/]{3}=|[a-z0-9+/]{2}==)?$)";
-        QRegExp regexp(pattern, Qt::CaseInsensitive, QRegExp::RegExp2);
+        QRegularExpression regexp(pattern);
 
         QString base64 = QString::fromLatin1(ba.constData(), ba.size());
 
-        return regexp.exactMatch(base64);
+        QRegularExpressionMatch match = regexp.match(base64);
+        return (match.hasMatch() && match.capturedLength(0) == base64.length());
     }
 
     bool isAsciiString(const QString& str)

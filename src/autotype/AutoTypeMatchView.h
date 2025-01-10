@@ -19,6 +19,8 @@
 #ifndef KEEPASSX_AUTOTYPEMATCHVIEW_H
 #define KEEPASSX_AUTOTYPEMATCHVIEW_H
 
+#include "core/Entry.h"
+
 #include <QTableView>
 
 #include "autotype/AutoTypeMatch.h"

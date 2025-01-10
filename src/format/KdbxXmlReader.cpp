@@ -114,11 +114,11 @@ void KdbxXmlReader::readDatabase(QIODevice* device, Database* db, KeePass2Random
     }
 
     if (!m_tmpParent->children().isEmpty()) {
-        qWarning("KdbxXmlReader::readDatabase: found %d invalid group reference(s)", m_tmpParent->children().size());
+        qWarning("KdbxXmlReader::readDatabase: found %d invalid group reference(s)", static_cast<int>(m_tmpParent->children().size()));
     }
 
     if (!m_tmpParent->entries().isEmpty()) {
-        qWarning("KdbxXmlReader::readDatabase: found %d invalid entry reference(s)", m_tmpParent->children().size());
+        qWarning("KdbxXmlReader::readDatabase: found %d invalid entry reference(s)", static_cast<int>(m_tmpParent->children().size()));
     }
 
     const QSet<QString> poolKeys = Tools::asSet(m_binaryPool.keys());
@@ -187,7 +187,7 @@ QString KdbxXmlReader::errorString() const
     return {};
 }
 
-bool KdbxXmlReader::isTrueValue(const QStringRef& value)
+bool KdbxXmlReader::isTrueValue(const QStringView& value)
 {
     return value.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0 || value == "1";
 }

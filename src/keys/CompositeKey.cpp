@@ -25,6 +25,7 @@
 #include "keys/FileKey.h"
 #include "keys/PasswordKey.h"
 
+#include <QIODevice>
 #include <QDataStream>
 #include <QDebug>
 

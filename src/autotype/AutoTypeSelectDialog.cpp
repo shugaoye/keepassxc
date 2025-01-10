@@ -330,7 +330,7 @@ void AutoTypeSelectDialog::buildActionMenu()
     });
 #endif
 
-    copyUsernameAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_1);
+    copyUsernameAction->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_1);
     copyUsernameAction->setProperty(MENU_FIELD_PROP_NAME, MENU_FIELD::USERNAME);
     connect(copyUsernameAction, &QAction::triggered, this, [&] {
         auto entry = m_ui->view->currentMatch().first;
@@ -340,7 +340,7 @@ void AutoTypeSelectDialog::buildActionMenu()
         }
     });
 
-    copyPasswordAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_2);
+    copyPasswordAction->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_2);
     copyPasswordAction->setProperty(MENU_FIELD_PROP_NAME, MENU_FIELD::PASSWORD);
     connect(copyPasswordAction, &QAction::triggered, this, [&] {
         auto entry = m_ui->view->currentMatch().first;
@@ -350,7 +350,7 @@ void AutoTypeSelectDialog::buildActionMenu()
         }
     });
 
-    copyTotpAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_3);
+    copyTotpAction->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_3);
     copyTotpAction->setProperty(MENU_FIELD_PROP_NAME, MENU_FIELD::TOTP);
     connect(copyTotpAction, &QAction::triggered, this, [&] {
         auto entry = m_ui->view->currentMatch().first;

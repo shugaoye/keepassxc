@@ -93,7 +93,7 @@ protected:
     virtual Group* getGroup(const QUuid& uuid);
     virtual Entry* getEntry(const QUuid& uuid);
 
-    virtual bool isTrueValue(const QStringRef& value);
+    virtual bool isTrueValue(const QStringView& value);
     virtual void raiseError(const QString& errorMessage);
 
     const quint32 m_kdbxVersion;
