@@ -299,7 +299,9 @@ bool Database::saveAs(const QString& filePath, SaveAction action, const QString&
 
 #ifdef Q_OS_WIN
         if (isHidden) {
-            SetFileAttributes(realFilePath.toStdString().c_str(), FILE_ATTRIBUTE_HIDDEN);
+            QString qString = QString::fromUtf8(realFilePath.toStdString().c_str());
+            std::wstring wideString = qString.toStdWString();
+            SetFileAttributes(wideString.c_str(), FILE_ATTRIBUTE_HIDDEN);
         }
 #endif
 

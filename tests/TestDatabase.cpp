@@ -125,7 +125,9 @@ void TestDatabase::testSaveAs()
     QVERIFY(QFile::exists(newDbFileName));
 #ifdef Q_OS_WIN
     QVERIFY(!QFileInfo(newDbFileName).isHidden());
-    SetFileAttributes(newDbFileName.toStdString().c_str(), FILE_ATTRIBUTE_HIDDEN);
+    QString qString = QString::fromUtf8(newDbFileName.toStdString().c_str());
+    std::wstring wideString = qString.toStdWString();
+    SetFileAttributes(wideString.c_str(), FILE_ATTRIBUTE_HIDDEN);
     QVERIFY2(db->saveAs(newDbFileName, Database::Atomic, QString(), &error), error.toLatin1());
     QVERIFY(QFileInfo(newDbFileName).isHidden());
 #endif

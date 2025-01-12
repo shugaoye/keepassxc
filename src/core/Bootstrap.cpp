@@ -174,7 +174,7 @@ namespace Bootstrap
         }
 
         if (!CreateWellKnownSid(WinCreatorOwnerRightsSid, nullptr, pOwnerRightsSid, &pOwnerRightsSidSize)) {
-            auto error = GetLastError();
+            //auto error = GetLastError();
             goto Cleanup;
         }
 

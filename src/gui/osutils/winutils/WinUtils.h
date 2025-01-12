@@ -65,7 +65,7 @@ protected:
     explicit WinUtils(QObject* parent = nullptr);
     ~WinUtils() override = default;
 
-    bool nativeEventFilter(const QByteArray& eventType, void* message, long*) override;
+    bool nativeEventFilter(const QByteArray& eventType, void* message, long*);
     void triggerGlobalShortcut(int id);
 
 private:

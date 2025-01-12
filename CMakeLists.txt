@@ -499,17 +499,17 @@ if(UNIX AND NOT APPLE)
     find_package(Qt6 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
 elseif(APPLE)
     find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS
-            /usr/local/opt/qt@5/lib/cmake
-            /usr/local/Cellar/qt@5/*/lib/cmake
-            /opt/homebrew/opt/qt@5/lib/cmake
+            /usr/local/opt/qt@6/lib/cmake
+            /usr/local/Cellar/qt@6/*/lib/cmake
+            /opt/homebrew/opt/qt@6/lib/cmake
             ENV PATH)
     find_package(Qt${QT_VERSION_MAJOR} COMPONENTS MacExtras HINTS
-            /usr/local/opt/qt@5/lib/cmake
-            /usr/local/Cellar/qt@5/*/lib/cmake
-            /opt/homebrew/opt/qt@5/lib/cmake
+            /usr/local/opt/qt@6/lib/cmake
+            /usr/local/Cellar/qt@6/*/lib/cmake
+            /opt/homebrew/opt/qt@6/lib/cmake
             ENV PATH)
 else()
-    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS} REQUIRED)
+    find_package(Qt6 COMPONENTS ${QT_COMPONENTS} REQUIRED)
 endif()
 
 message("QT6: ${QT_COMPONENTS}")

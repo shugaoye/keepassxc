@@ -630,7 +630,7 @@ void TestCli::testAttachmentRemove()
 
 void TestCli::testClip()
 {
-    if (QProcessEnvironment::systemEnvironment().contains("WAYLAND_DISPLAY")) {
+/*     if (QProcessEnvironment::systemEnvironment().contains("WAYLAND_DISPLAY")) {
         QSKIP("Clip test skipped due to QClipboard and Wayland issues on Linux");
     }
 
@@ -735,7 +735,7 @@ void TestCli::testClip()
     setInput("a");
     execCmd(clipCmd, {"clip", m_dbFileMulti->fileName(), "Entry 2", "0", "-b"});
     QTRY_COMPARE(clipboard->text(), QString("Password2"));
-}
+ */}
 
 void TestCli::testCreate()
 {

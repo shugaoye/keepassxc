@@ -35,41 +35,6 @@
       "platform": "linux | freebsd"
     },
     {
-      "name": "qt5",
-      "version>=": "5.15.11"
-    },
-    {
-      "name": "qt5-imageformats",
-      "version>=": "5.15.11"
-    },
-    {
-      "name": "qt5-macextras",
-      "version>=": "5.15.11",
-      "platform": "osx"
-    },
-    {
-      "name": "qt5-svg",
-      "version>=": "5.15.11"
-    },
-    {
-      "name": "qt5-tools",
-      "version>=": "5.15.11"
-    },
-    {
-      "name": "qt5-translations",
-      "version>=": "5.15.11"
-    },
-    {
-      "name": "qt5-wayland",
-      "version>=": "5.15.11",
-      "platform": "linux | freebsd"
-    },
-    {
-      "name": "qt5-x11extras",
-      "version>=": "5.15.11",
-      "platform": "linux | freebsd"
-    },
-    {
       "name": "readline",
       "version>=": "0#5"
     },

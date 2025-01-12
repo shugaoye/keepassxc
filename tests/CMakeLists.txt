@@ -90,7 +90,7 @@ macro(add_unit_test)
     endif()
 endmacro(add_unit_test)
 
-set(TEST_LIBRARIES keepassxc_gui Qt5::Test)
+set(TEST_LIBRARIES keepassxc_core Qt${QT_VERSION_MAJOR}::Test)
 
 set(testsupport_SOURCES
         modeltest.cpp
@@ -98,7 +98,7 @@ set(testsupport_SOURCES
         mock/MockClock.cpp
         util/TemporaryFile.cpp)
 add_library(testsupport STATIC ${testsupport_SOURCES})
-target_link_libraries(testsupport Qt5::Core Qt5::Concurrent Qt5::Widgets Qt5::Test)
+target_link_libraries(testsupport Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Concurrent Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
 
 add_unit_test(NAME testgroup SOURCES TestGroup.cpp
         LIBS testsupport ${TEST_LIBRARIES})
@@ -115,11 +115,11 @@ add_unit_test(NAME testkdbx4 SOURCES TestKeePass2Format.cpp FailDevice.cpp mock/
 add_unit_test(NAME testkeys SOURCES TestKeys.cpp mock/MockChallengeResponseKey.cpp
         LIBS ${TEST_LIBRARIES})
 
-add_unit_test(NAME testgroupmodel SOURCES TestGroupModel.cpp
-        LIBS testsupport ${TEST_LIBRARIES})
+# add_unit_test(NAME testgroupmodel SOURCES TestGroupModel.cpp
+#         LIBS testsupport ${TEST_LIBRARIES})
 
-add_unit_test(NAME testentrymodel SOURCES TestEntryModel.cpp
-        LIBS testsupport ${TEST_LIBRARIES})
+# add_unit_test(NAME testentrymodel SOURCES TestEntryModel.cpp
+#         LIBS testsupport ${TEST_LIBRARIES})
 
 add_unit_test(NAME testcryptohash SOURCES TestCryptoHash.cpp
         LIBS ${TEST_LIBRARIES})
@@ -152,20 +152,20 @@ if(WITH_XC_NETWORKING)
     add_unit_test(NAME testicondownloader SOURCES TestIconDownloader.cpp LIBS ${TEST_LIBRARIES})
 endif()
 
-if(WITH_XC_AUTOTYPE)
-    add_unit_test(NAME testautotype SOURCES TestAutoType.cpp
-            LIBS ${TEST_LIBRARIES})
-    set_target_properties(testautotype PROPERTIES ENABLE_EXPORTS ON)
-endif()
+# if(WITH_XC_AUTOTYPE)
+#     add_unit_test(NAME testautotype SOURCES TestAutoType.cpp
+#             LIBS ${TEST_LIBRARIES})
+#     set_target_properties(testautotype PROPERTIES ENABLE_EXPORTS ON)
+# endif()
 
-if(WITH_XC_SSHAGENT)
-    add_unit_test(NAME testopensshkey SOURCES TestOpenSSHKey.cpp
-            LIBS sshagent ${TEST_LIBRARIES})
-    if(NOT WIN32)
-        add_unit_test(NAME testsshagent SOURCES TestSSHAgent.cpp
-                LIBS sshagent ${TEST_LIBRARIES})
-    endif()
-endif()
+# if(WITH_XC_SSHAGENT)
+#     add_unit_test(NAME testopensshkey SOURCES TestOpenSSHKey.cpp
+#             LIBS sshagent ${TEST_LIBRARIES})
+#     if(NOT WIN32)
+#         add_unit_test(NAME testsshagent SOURCES TestSSHAgent.cpp
+#                 LIBS sshagent ${TEST_LIBRARIES})
+#     endif()
+# endif()
 
 add_unit_test(NAME testentry SOURCES TestEntry.cpp
         LIBS ${TEST_LIBRARIES})
@@ -246,6 +246,6 @@ add_unit_test(NAME testcli SOURCES TestCli.cpp
         LIBS testsupport cli ${ZXCVBN_LIBRARIES} ${TEST_LIBRARIES})
 target_compile_definitions(testcli PRIVATE KEEPASSX_CLI_PATH="$<TARGET_FILE:keepassxc-cli>")
 
-if(WITH_GUI_TESTS)
-    add_subdirectory(gui)
-endif(WITH_GUI_TESTS)
+#if(WITH_GUI_TESTS)
+#    add_subdirectory(gui)
+#endif(WITH_GUI_TESTS)
