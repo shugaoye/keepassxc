@@ -491,7 +491,7 @@ endif()
 
 include(CLangFormat)
 
-set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools Core5Compat)
+set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools)
 if(UNIX AND NOT APPLE)
 #    if(WITH_XC_X11)
 #        list(APPEND QT_COMPONENTS X11Extras)
